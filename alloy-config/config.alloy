@@ -1,0 +1,29 @@
+prometheus.scrape "PROMETHEUS" {
+	targets = [{
+		__address__ = "prometheus-recebedor:9090",
+	}]
+	forward_to      = [prometheus.remote_write.default.receiver]
+	job_name        = "PROMETHEUS"
+	scrape_interval = "15s"
+	metrics_path    = "/metrics"
+	scheme          = "http"
+}
+
+prometheus.remote_write "default" {
+	endpoint {
+		url     = "http://192.168.1.11/api/v1/write"
+		headers = {
+			"X-Scope-OrgID" = "AzureTenant",
+		}
+    	basic_auth {
+    	  username = sys.env("USUARIOALLOY")
+    	  password = sys.env("SENHAALLOY")
+    	}
+		queue_config { }
+
+		metadata_config { }
+	}
+	wal {
+			truncate_frequency = "30m"
+	}
+}

@@ -1,0 +1,55 @@
+version: "3.8"
+services:
+  nginx:
+    image: nginx:1.29.0
+    container_name: nginx
+    restart: unless-stopped
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./nginx-config/default.conf:/etc/nginx/conf.d/default.conf
+      - ./nginx-config/.auth:/etc/nginx/senhas/.auth
+    networks:
+      - prometheus
+  grafana-alloy:
+    image: grafana/alloy:v1.9.2
+    container_name: grafana-alloy
+    volumes:
+      - ./alloy-config/config.alloy:/etc/alloy/config.alloy
+    ports:
+      - "12345:12345"
+    command: >
+      run --server.http.listen-addr=0.0.0.0:12345 --storage.path=/var/lib/alloy/data /etc/alloy/config.alloy
+    restart: unless-stopped
+    networks:
+      - prometheus
+    environment:
+      - USUARIOALLOY=prometheus
+      - SENHAALLOY=123456
+  prometheus-recebedor:
+    image: prom/prometheus:v3.4.2
+    container_name: prometheus-recebedor
+    restart: always
+    volumes:
+      - ./prometheus-config/prometheus-recebedor.yml:/etc/prometheus/prometheus.yml
+    ports:
+      - 9091:9090 # HTTP
+    command: 
+      - "--config.file=/etc/prometheus/prometheus.yml"
+      - "--web.enable-remote-write-receiver"
+    networks:
+      - prometheus
+#  grafana:
+#    image: grafana/grafana:12.0.1
+#    container_name: grafana
+#    restart: unless-stopped
+#    ports:
+#     - '3000:3000'
+#    networks:
+#      - prometheus
+#    environment:
+#      - GF_FEATURE_TOGGLES_ENABLE=dashboardNewLayouts,kubernetesDashboards
+#
+networks:
+  prometheus:
