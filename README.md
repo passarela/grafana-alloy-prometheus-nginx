@@ -129,5 +129,3 @@ htpasswd -c ./nginx-config/.auth seu_usuario_nginx
 ## ⚠️ Considerações de Segurança Críticas ⚠️
 
 -   **NUNCA FAÇA COMMIT DE SEGREDOS**: O arquivo `.gitignore` está configurado para ignorar `.auth`. **Adicione o arquivo `.env` ao seu `.gitignore`** para evitar o commit acidental de credenciais.
-
--   **ARQUIVO `apps.json`**: Se você possui um arquivo chamado `apps.json` neste diretório, ele contém uma quantidade massiva de segredos de produção (chaves de API, strings de conexão, etc.). **DELETE ESTE ARQUIVO IMEDIATAMENTE** e garanta que ele não exista no histórico do seu repositório Git. A exposição deste arquivo representa uma vulnerabilidade de segurança de extrema gravidade.
