@@ -25,9 +25,7 @@ graph TD
         D
     end
 
-    style B fill:#f9f,stroke:#333,stroke-width:2px
-    style C fill:#f9f,stroke:#333,stroke-width:2px
-    style F fill:#f9f,stroke:#333,stroke-width:2px
+
 ```
 
 -   **Grafana Alloy (`grafana-alloy`)**: O coração da solução. Utiliza a linguagem de configuração **River** (`.alloy`) para definir o pipeline de dados. Ele faz o scrape do serviço `prometheus-recebedor` e encaminha as métricas via `prometheus.remote_write`.
