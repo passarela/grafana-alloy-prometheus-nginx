@@ -1,6 +1,6 @@
 # Grafana Alloy Metrics Forwarder com Docker Compose
 
-Este repositório contém uma configuração robusta, baseada em Docker Compose, para implantar o **Grafana Alloy**. Ele atua como um coletor e encaminhador de métricas de alta performance, projetado para fazer o scrape de um endpoint Prometheus e encaminhar os dados de forma segura para um sistema de armazenamento de métricas compatível com `remote_write`, como Grafana Mimir, Cortex ou Thanos.
+Este repositório contém uma configuração, baseada em Docker Compose, para implantar o **Grafana Alloy**. Ele atua como um coletor e encaminhador de métricas de alta performance, projetado para fazer o scrape de um endpoint Prometheus e encaminhar os dados de forma segura para um sistema de armazenamento de métricas compatível com `remote_write`, como Grafana Mimir, Cortex ou Thanos.
 
 ## Visão Geral da Arquitetura
 
